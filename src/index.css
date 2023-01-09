@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .my-gradient {
+        @apply bg-gradient-to-b from-mygreen to-mydeepgreen
+    }
+
+    .button-outline {
+        font: 800 40px League Spartan;
+        -webkit-text-fill-color: white;
+        -webkit-text-stroke: 1px;
+        @apply text-black hover:underline;
+    }
+
+    .button-outline:hover {
+        -webkit-text-fill-color: black;
+        @apply transition duration-500;
+    }
+
+    .button-white {
+        font: 800 40px League Spartan;
+        @apply text-black bg-white rounded-full p-6 
+        transition duration-500 hover:bg-black hover:text-white;
+    }
+
+    .button-disabled {
+        font: 800 40px League Spartan;
+        @apply text-white bg-gray-500
+    }
+
+    .my-height {
+        @apply h-[calc(100vh-85px)];
+    }
+}
