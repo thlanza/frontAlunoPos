@@ -42,14 +42,14 @@ const Nav = ({ aoClicar }) => {
             <Logo small />
         </div>
         <div className='mr-10'>
-            <button className='mr-16 button-outline'>
+            <button className='mr-16 outlined dynamic-transition'>
                 <Link to="/">Home</Link>
             </button>
-            <button className='mr-16 button-outline'>
+            <button className='mr-16 outlined dynamic-transition'>
                 <Link to="/contato">Contato</Link>
             </button>
                 <Link to="/login">
-                <button className='mr-16 button-white'>
+                <button className='mr-16 button-white dynamic-transition'>
                     Login/Matricular
                 </button>
                 </Link>

@@ -7,16 +7,11 @@
         @apply bg-gradient-to-b from-mygreen to-mydeepgreen
     }
 
-    .button-outline {
-        font: 800 40px League Spartan;
-        -webkit-text-fill-color: white;
-        -webkit-text-stroke: 1px;
-        @apply text-black hover:underline;
-    }
-
-    .button-outline:hover {
-        -webkit-text-fill-color: black;
-        @apply transition duration-500;
+    .outlined {
+       color: white;
+       font-family: League Spartan;
+       font-size: 42px;
+       text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
     .button-white {
@@ -30,6 +25,14 @@
         @apply text-white bg-gray-500
     }
 
+    .iconhover:hover {
+        color: #7E7B15 !important;
+    }
+
+    .dynamic-transition {
+        @apply transition duration-500 hover:underline;
+    }
+
     .my-height {
         @apply h-[calc(100vh-85px)];
     }
@@ -40,3 +43,4 @@
         text-decoration: underline;
     }
 }
+
