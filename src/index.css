@@ -33,4 +33,10 @@
     .my-height {
         @apply h-[calc(100vh-85px)];
     }
+
+    .map-marker {
+        margin-top: -30px;
+        font: 800 40px League Spartan;
+        text-decoration: underline;
+    }
 }
