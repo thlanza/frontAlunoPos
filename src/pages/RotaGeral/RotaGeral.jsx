@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Nav from '../../components/Nav/Nav';
+import Nav from '../../components/Nav/Nav.jsx';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';

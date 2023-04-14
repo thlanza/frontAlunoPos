@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { logarAction } from '../../redux/slices/alunos/alunosSlices';
+import { logarAction, resetErro } from '../../redux/slices/alunos/alunosSlices';
+import { useEffect } from 'react';
 
 const formSchema = Yup.object({
   email: Yup.string().email("Deve ser um email válido.").required("Email é requerido."),
@@ -26,6 +27,11 @@ const Login = () => {
     validationSchema: formSchema
   });
 
+  useEffect(() => {
+    dispatch(resetErro());
+  }, []);
+
+
   const alunos = useSelector(state => state?.alunos);
   const { appErr, serverErr, loading, alunoLogado } = alunos;
 
@@ -38,6 +44,7 @@ const Login = () => {
         <h1 className='font-spartan flex text-white m-6 text-4xl'>Bem-vindo!</h1>
         </div>
         <div className='m-3'>
+          {appErr || serverErr ? <h1 className='text-red-500 font-bold'>{appErr} {serverErr}</h1> : null}
           <p className='font-bakbak text-left font-bold'>Email</p>
           <input
             type="email"

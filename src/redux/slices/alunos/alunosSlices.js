@@ -80,6 +80,19 @@ export const logarAction = createAsyncThunk('alunos/logar',
         }
 });
 
+//logout
+export const logoutAction = createAsyncThunk('alunos/logout',
+    async (_, { rejectWithValue, getState, dispatch }) => {
+        try {
+            localStorage.removeItem('infoAluno');
+        } catch (err) {
+            if(!err?.response) {
+                throw err;
+            };
+            return rejectWithValue(err?.response?.data);
+        }
+});
+
 //pegar aluno do localStorage e colocar na store
 const alunoMatriculadoLocalStorage = 
     localStorage.getItem('infoAluno') ?
@@ -90,6 +103,12 @@ const alunosSlices = createSlice({
     name: 'alunos',
     initialState: {
         alunoLogado: alunoMatriculadoLocalStorage
+    },
+    reducers: {
+        resetErro(state) {
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        }
     },
     extraReducers: (builder) => {
         //matricular
@@ -105,6 +124,23 @@ const alunosSlices = createSlice({
             state.serverErr = undefined;
         });
         builder.addCase(matricularAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+        //logout
+        builder.addCase(logoutAction.pending, (state, action) => {
+            state.loading = true; 
+            state.appErr = undefined;
+            state.serverErr = undefined;  
+        });
+        builder.addCase(logoutAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.alunoLogado = undefined;
+            state.appErr = undefined;
+            state.serverErr = undefined;
+        });
+        builder.addCase(logoutAction.rejected, (state, action) => {
             state.loading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;
@@ -147,3 +183,5 @@ const alunosSlices = createSlice({
 });
 
 export default alunosSlices.reducer;
+
+export const { resetErro } = alunosSlices.actions;

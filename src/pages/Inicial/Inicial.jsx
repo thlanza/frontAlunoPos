@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import Nav from '../../components/Nav/Nav'
+import Nav from '../../components/Nav/Nav';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 
 const Inicial = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-
-  const [nav, setNav] = useState(false);
 
   return (
     <>
@@ -24,9 +22,9 @@ const Inicial = () => {
         
       </div>
     ): (
-      <div className='h-screen'>
+      <div className='h-[calc(100vh - 88px)]'>
               <div className='flex'>
-                  <div className='w-1/2 h-screen flex flex-col p-16 font-bebas
+                  <div className='w-1/2 h-[calc(100vh - 88px)] flex flex-col p-16 font-bebas
                   text-5xl'>
                       <h1 className='text-mygreen'>BEM-VINDO À</h1>
                       <h1 className='text-white mb-10'>MELHOR ACADEMIA DE BELO HORIZONTE!</h1>

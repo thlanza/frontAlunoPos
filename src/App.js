@@ -9,6 +9,8 @@ import RotasProtegidas from './pages/RotasProtegidas/RotasProtegidas';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Contato from './pages/Contato/Contato';
+import AreaDoAluno from './pages/AreaDoAluno/AreaDoAluno';
+import MudarModalidade from './components/MudarModalidade/MudarModalidade';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,6 +43,8 @@ function App() {
       </Route>
       <Route element={<RotasProtegidas alunoLogado={alunoLogado} />} >
           <Route path="/home" element={<Home />} />
+          {/* <Route path="/mudarModalidade" element={<MudarModalidade />} /> */}
+          {/* <Route path="/aluno" element={<AreaDoAluno />} />  Será desenvolvido no módulo 3 /* */}
         </Route>
     </Routes>
   </Router>

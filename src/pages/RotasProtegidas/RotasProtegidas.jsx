@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Nav from '../../components/Nav/Nav'
+import Nav from '../../components/Nav/Nav.jsx'
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
