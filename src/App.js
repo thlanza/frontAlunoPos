@@ -30,7 +30,11 @@ function App() {
 
   useEffect(() => {
     getUser();
-    user ? console.log(user): 'Não há user'
+    if(user) {
+      console.log(user);
+    } else {
+      console.log('Não há user');
+    }
   }, []);
 
   return (
