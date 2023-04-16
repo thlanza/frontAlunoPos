@@ -46,7 +46,7 @@ const Registrar = ({ user }) => {
 
   const googleAuth = () => {
     window.open(
-        `${process.env.REACT_APP_API_URL}/api/alunos/google`,
+        `${process.env.REACT_APP_API_URL}/api/alunos/google/callback`,
         "_self"
     )
   };
