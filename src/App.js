@@ -21,7 +21,7 @@ function App() {
       const { data } = await axios.get(url, { withCredentials: true });
       setUser(data.user._json)
     } catch (err) {
-      console.log(err)
+      console.log(JSON.stringify(err))
     }
   };
 
