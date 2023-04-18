@@ -38,6 +38,10 @@ const Container = styled.div`
 
 const Registrar = ({ user }) => {
   const [pronto, configurarPronto] = useState(false);
+  const [nome, configurarNome] = useState();
+  const [email, configurarEmail] = useState();
+  const [profilePic, configurarProfilePic] = useState();
+  const [logado, configurarLogado] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,7 +57,12 @@ const Registrar = ({ user }) => {
   // };
 
   const responseGoogle = (response) => {
-    console.log(response)
+    console.log(response);
+    const { profileObj: { name, email, imgUrl }} = response;
+    configurarNome(name);
+    configurarEmail(email);
+    configurarProfilePic(imgUrl);
+    configurarLogado(true);
   }
 
   const responseFailure = (response) => {
@@ -213,6 +222,15 @@ const Registrar = ({ user }) => {
       </form>
       <div className='hidden sm:block sm:w-1/2'>
         <img className="w-[100%] object-cover object-top" src="./gym-green.png" alt="" />
+      </div>
+      <div>
+        {logado ?
+        <div>
+        <img src={profilePic} alt="Profile" />
+        <p>Name: { nome }</p>
+        <p>Email: { email }</p>
+        </div>  
+      : ''}
       </div>
     </div>
   )
