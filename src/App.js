@@ -12,6 +12,7 @@ import Contato from './pages/Contato/Contato';
 import AreaDoAluno from './pages/AreaDoAluno/AreaDoAluno';
 import MudarModalidade from './components/MudarModalidade/MudarModalidade';
 
+
 function App() {
   const [user, setUser] = useState(null);
 

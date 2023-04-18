@@ -8,6 +8,7 @@ import makeAnimated from 'react-select/animated';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { matricularAction, matricularGoogleAction } from '../../redux/slices/alunos/alunosSlices';
+import GoogleLogin from 'react-google-login';
 
 const animatedComponents = makeAnimated();
 
@@ -44,12 +45,20 @@ const Registrar = ({ user }) => {
     dispatch(getModalidadesAction())
   }, []);
 
-  const googleAuth = () => {
-    window.open(
-        `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-        "_self"
-    )
-  };
+  // const googleAuth = () => {
+  //   window.open(
+  //       `${process.env.REACT_APP_API_URL}/auth/google/callback`,
+  //       "_self"
+  //   )
+  // };
+
+  const responseGoogle = (response) => {
+    console.log(response)
+  }
+
+  const responseFailure = (response) => {
+    
+  }
 
   
   const modalidadesList = useSelector(state => state?.modalidades);
@@ -192,20 +201,12 @@ const Registrar = ({ user }) => {
         className='button-white m-5'>
           Matricular
         </button>}
-        {user ? null : (
-        <button
-        className='button-white m-5'
-        onClick={googleAuth}
-        >
-          <div className='items-center ml-20'>
-          Matricular com Google
-          <img 
-          className='h-20 w-20 rounded-full ml-10'
-          src="./google.png" alt="google" />
-          </div>
-        </button>
-        )
-        }
+        <GoogleLogin
+            clientId={process.env.REACT_APP_CLIENT_ID}
+            buttonText='Matricular com Google'
+            onSuccess={responseGoogle}
+            onFailure={responseFailure}
+          />
         <h5 className='text-white m-5'>
           Já possui registro? <Link className="text-gray-300 hover:underline" to="/login">Logar</Link>
         </h5>
