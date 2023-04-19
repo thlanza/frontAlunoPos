@@ -14,42 +14,42 @@ import MudarModalidade from './components/MudarModalidade/MudarModalidade';
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
-  const getUser = async () => {
-    try {
-      const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      setUser(data.user._json)
-    } catch (err) {
-      console.log(JSON.stringify(err))
-    }
-  };
+  // const getUser = async () => {
+  //   try {
+  //     const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+  //     const { data } = await axios.get(url, { withCredentials: true });
+  //     setUser(data.user._json)
+  //   } catch (err) {
+  //     console.log(JSON.stringify(err))
+  //   }
+  // };
 
   const aluno = useSelector(state => state?.alunos);
   const { alunoLogado } = aluno;
 
-  useEffect(() => {
-    getUser();
-    if(user) {
-      console.log(user);
-    } else {
-      console.log('Não há user');
-    }
-  }, []);
+  // useEffect(() => {
+  //   getUser();
+  //   if(user) {
+  //     console.log(user);
+  //   } else {
+  //     console.log('Não há user');
+  //   }
+  // }, []);
 
   return (
     <Router>
     <Routes>
       <Route element={<RotaGeral />} >
-        <Route path="/" element={user ? <Registrar user={user} /> : <Inicial />} />
+        <Route path="/" element={<Inicial />} />
         <Route path="/login" element={<Login />}/>
         <Route path="/registrar" element={<Registrar />}/>
         <Route path="/contato" element={<Contato />}/>
       </Route>
       <Route element={<RotasProtegidas alunoLogado={alunoLogado} />} >
           <Route path="/home" element={<Home />} />
-          {/* <Route path="/mudarModalidade" element={<MudarModalidade />} /> */}
+          {/* <Route path="/mudarModalidade" element={<MudarModalidade />} /> * Será desenvolvido no módulo 3 /}
           {/* <Route path="/aluno" element={<AreaDoAluno />} />  Será desenvolvido no módulo 3 /* */}
         </Route>
     </Routes>

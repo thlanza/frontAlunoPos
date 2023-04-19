@@ -8,7 +8,8 @@ import makeAnimated from 'react-select/animated';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { matricularAction, matricularGoogleAction } from '../../redux/slices/alunos/alunosSlices';
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
 
 const animatedComponents = makeAnimated();
 
@@ -36,11 +37,11 @@ const Container = styled.div`
   transition: border 0.24s ease-in-out;
 `;
 
-const Registrar = ({ user }) => {
+const Registrar = () => {
   const [pronto, configurarPronto] = useState(false);
-  const [nome, configurarNome] = useState();
-  const [email, configurarEmail] = useState();
-  const [profilePic, configurarProfilePic] = useState();
+  const [nome, configurarNome] = useState("");
+  const [email, configurarEmail] = useState("");
+  const [profilePic, configurarProfilePic] = useState("");
   const [logado, configurarLogado] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,17 +57,21 @@ const Registrar = ({ user }) => {
   //   )
   // };
 
-  const responseGoogle = (response) => {
+  const responseGoogle = async (response) => {
     console.log(response);
-    const { profileObj: { name, email, imgUrl }} = response;
+    let obj = jwtDecode(response.credential);
+    let data = JSON.parse(JSON.stringify(obj));
+    console.log(data);
+    const { name, picture, email } = data;   
+    console.log(name, picture, email);
     configurarNome(name);
     configurarEmail(email);
-    configurarProfilePic(imgUrl);
+    configurarProfilePic(picture);
     configurarLogado(true);
   }
 
-  const responseFailure = (response) => {
-    
+  const responseFailure = (error) => {
+    console.log(error.message);
   }
 
   
@@ -86,15 +91,15 @@ const Registrar = ({ user }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-        primeiroNome: user ? user?.name.split(" ")[0] : '',
-        sobrenome: user ? user?.name.split(" ")[1] : '',
-        email: user ? user?.email: '',
+        primeiroNome: nome ? nome?.split(" ")[0] : '',
+        sobrenome: nome ? nome?.split(" ")[1] : '',
+        email: email ? email: '',
         senha: '',
-        image: user ? user?.picture : '',
+        image: profilePic ? profilePic : '',
         modalidade: ''
     },
     onSubmit: values => {
-      if(user) {
+      if(nome) {
         const data = {
           primeiroNome: values.primeiroNome,
           sobrenome: values.sobrenome,
@@ -106,7 +111,6 @@ const Registrar = ({ user }) => {
         dispatch(matricularGoogleAction(data));
       } else {
         dispatch(matricularAction(values));
-
       }   
     },
     validationSchema: formSchema
@@ -121,7 +125,7 @@ const Registrar = ({ user }) => {
         onSubmit={formik.handleSubmit}
         className='sm:w-1/2 my-gradient flex flex-col'>
         <div className='flex items-center justify-center'>
-        <h1 className='font-spartan flex text-white m-6 text-4xl'>Bem-vindo! Preencha os dados a seguir para a matrícula</h1>
+        <h1 className='font-spartan flex text-white m-6 text-4xl'>{logado ? 'Preencha os dados restantes.': 'Bem-vindo! Preencha os dados a seguir para a matrícula'}</h1>
         </div>
         <div className='m-3'>
           <p className='font-bakbak text-left font-bold text-white'>Primeiro Nome <span className='text-red-500'>{formik.touched.primeiroNome && formik.errors.primeiroNome}</span></p>
@@ -189,7 +193,7 @@ const Registrar = ({ user }) => {
            </div>
            )
            }
-          {user ?  null : 
+          {nome ?  null : 
           <Container>
             <input
               type="file"
@@ -210,12 +214,13 @@ const Registrar = ({ user }) => {
         className='button-white m-5'>
           Matricular
         </button>}
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
         <GoogleLogin
-            clientId={process.env.REACT_APP_CLIENT_ID}
-            buttonText='Matricular com Google'
-            onSuccess={responseGoogle}
-            onFailure={responseFailure}
-          />
+                  buttonText='Matricular com Google'
+                  onSuccess={responseGoogle}
+                  onFailure={responseFailure}
+        />
+    </GoogleOAuthProvider>
         <h5 className='text-white m-5'>
           Já possui registro? <Link className="text-gray-300 hover:underline" to="/login">Logar</Link>
         </h5>
@@ -223,7 +228,7 @@ const Registrar = ({ user }) => {
       <div className='hidden sm:block sm:w-1/2'>
         <img className="w-[100%] object-cover object-top" src="./gym-green.png" alt="" />
       </div>
-      <div>
+      {/* <div>
         {logado ?
         <div>
         <img src={profilePic} alt="Profile" />
@@ -231,7 +236,7 @@ const Registrar = ({ user }) => {
         <p>Email: { email }</p>
         </div>  
       : ''}
-      </div>
+      </div> */}
     </div>
   )
 }

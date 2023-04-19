@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.17.1",
+    "@react-oauth/google": "^0.10.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +13,7 @@
     "axios": "^1.2.2",
     "formik": "^2.2.9",
     "iconoir-react": "^5.5.2",
+    "jwt-decode": "^3.1.2",
     "postcss": "^8.4.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
