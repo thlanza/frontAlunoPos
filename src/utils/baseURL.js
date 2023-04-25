@@ -1,1 +1,1 @@
-export const baseUrl = "https://backend-da-academia-lanza-modulo-2-da-pos-5258.onrender.com/api";
+export const baseUrl = "https://backend-da-academia-lanza-modulo-3-da-pos.onrender.com/api";

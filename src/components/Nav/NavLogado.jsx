@@ -21,7 +21,7 @@ const IconLink = ({ icon, link, url, onClick }) => {
 const NavLogado = ({ logado, aoClicar }) => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const cssButton = 'mr-8 outlined dynamic-transition';
+  const cssButton = 'mr-4 outlined dynamic-transition border border-white rounded-xl p-1';
   return (
     <>
      {isMobile ? (
@@ -54,20 +54,17 @@ const NavLogado = ({ logado, aoClicar }) => {
             <button className={cssButton}>
                 <Link to="/contato">Contato</Link>
             </button>
-            {/* <button className='mr-16 outlined dynamic-transition'>
-                <Link to="/aluno">Área do Aluno</Link>
-            </button> */}
-            {/* <button className={cssButton}>
+            <button className={cssButton}>
             <Link to="/mudarModalidade">Mudar Modalidade</Link>
             </button>
             <button className={cssButton}>
-            <Link to="/notificarFalta">Notificar Falta</Link>
+            <Link to="/notificarPresenca">Notificar Presença / Falta</Link>
             </button>
             <button className={cssButton}>
             <Link to="/confirmarPagamento">Confirmar Pagamento</Link>
-            </button> */}
+            </button>
                 <Link to="/login">
-                <button onClick={() => dispatch(logoutAction())} className='mr-16 button-white dynamic-transition'>
+                <button onClick={() => dispatch(logoutAction())} className='mr-8 button-white dynamic-transition'>
                     Deslogar
                 </button>
                 </Link>

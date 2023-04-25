@@ -10,13 +10,13 @@
     .outlined {
        color: white;
        font-family: League Spartan;
-       font-size: 30px;
+       font-size: 20px;
        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
     .button-white {
-        font: 800 30px League Spartan;
-        @apply text-black bg-white rounded-full p-5 
+        font: 600 20px League Spartan;
+        @apply text-black bg-white rounded-full p-3 
         transition duration-500 hover:bg-black hover:text-white;
     }
 
