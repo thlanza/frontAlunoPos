@@ -14,29 +14,9 @@ import MudarModalidade from './components/MudarModalidade/MudarModalidade';
 
 
 function App() {
-  // const [user, setUser] = useState(null);
-
-  // const getUser = async () => {
-  //   try {
-  //     const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-  //     const { data } = await axios.get(url, { withCredentials: true });
-  //     setUser(data.user._json)
-  //   } catch (err) {
-  //     console.log(JSON.stringify(err))
-  //   }
-  // };
 
   const aluno = useSelector(state => state?.alunos);
   const { alunoLogado } = aluno;
-
-  // useEffect(() => {
-  //   getUser();
-  //   if(user) {
-  //     console.log(user);
-  //   } else {
-  //     console.log('Não há user');
-  //   }
-  // }, []);
 
   return (
     <Router>
