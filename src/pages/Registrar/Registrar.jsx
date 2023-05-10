@@ -154,6 +154,7 @@ const Registrar = () => {
            className='p-3 mb-1 react-select'
            id="custom"
            components={animatedComponents}
+           placeholder="Selecione..."
            onChange={(e) => {
              formik.setFieldValue("modalidade", e.id)
              configurarPronto(true);
