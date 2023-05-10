@@ -14,6 +14,14 @@ const RotasProtegidas = ({ alunoLogado }) => {
     return <Navigate to="/login" />;
   }
 
+  const formatarCaminho = (caminho) => {
+    let array = caminho.split("-");
+    if (array.length === 1) {
+        return array[0];
+    } else {
+        return array.join(" ");
+    }
+  }
   return (
       <>
           {isMobile ? (
@@ -29,7 +37,7 @@ const RotasProtegidas = ({ alunoLogado }) => {
                            : 
                            <div className=''>
                                       <div className='h-[50px] font-bebas text-white
-                                      flex items-center text-3xl'>{pathname === "/" ? "Home" : pathname.substring(1)}</div>
+                                      flex items-center text-3xl'>{pathname === "/" ? "Home" : formatarCaminho(pathname.substring(1))}</div>
                               <div className='absolute top-2 right-2'>
                               <GiHamburgerMenu size={35} onClick={() => setNav(true)} />
                               </div>

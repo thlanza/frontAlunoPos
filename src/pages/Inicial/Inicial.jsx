@@ -27,7 +27,7 @@ const Inicial = () => {
                   <div className='w-1/2 h-[calc(100vh - 88px)] flex flex-col p-16 font-bebas
                   text-5xl'>
                       <h1 className='text-mygreen'>BEM-VINDO À</h1>
-                      <h1 className='text-white mb-10'>MELHOR ACADEMIA DE BELO HORIZONTE!</h1>
+                      <h1 className='text-white mb-10 melhor'>MELHOR ACADEMIA DE BELO HORIZONTE!</h1>
                       <h1 className='text-white'>NÃO PERCA TEMPO!</h1>
                       <h1 className='text-white'>COMECE JÁ!</h1>
                   </div>

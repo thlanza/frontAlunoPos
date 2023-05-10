@@ -6,7 +6,6 @@ import { getModalidadesAction, umaModalidadeAction } from '../../redux/slices/mo
 import * as Yup from 'yup';
 import makeAnimated from 'react-select/animated';
 import { useFormik } from 'formik';
-import styled from 'styled-components';
 import { matricularAction, matricularGoogleAction } from '../../redux/slices/alunos/alunosSlices';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
@@ -22,21 +21,6 @@ const formSchema = Yup.object({
   modalidade: Yup.string().required("Modalidade é requerido."),
 });
 
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-width: 2px;
-  border-radius: 2px;
-  border-style: dashed;
-  background-color: #fafafa;
-  color: #bdbdbd;
-  border-color: 'red';
-  transition: border 0.24s ease-in-out;
-`;
-
 const Registrar = () => {
   const [pronto, configurarPronto] = useState(false);
   const [nome, configurarNome] = useState("");
@@ -49,13 +33,6 @@ const Registrar = () => {
   useEffect(() => {
     dispatch(getModalidadesAction())
   }, []);
-
-  // const googleAuth = () => {
-  //   window.open(
-  //       `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-  //       "_self"
-  //   )
-  // };
 
   const responseGoogle = async (response) => {
     console.log(response);
@@ -120,7 +97,7 @@ const Registrar = () => {
 
   
   return (
-    <div className='flex'>
+    <div className='flex justify-center'>
       <form 
         onSubmit={formik.handleSubmit}
         className='sm:w-1/2 my-gradient flex flex-col'>
@@ -165,7 +142,7 @@ const Registrar = () => {
           <input 
               type="text"  
               className="border-4 p-3 w-full rounded-lg placeholder:p-4" 
-              placeholder='Coloque aqui sua senha'
+              placeholder='Coloque aqui seu email'
               value={formik.values.email}
               onChange={formik.handleChange('email')}
               onBlur={formik.handleBlur('email')}
@@ -174,7 +151,8 @@ const Registrar = () => {
            <div className='m-3'>
            <p className='font-bakbak text-left text-white'>Modalidades  <span className='text-red-500'>{formik.touched.modalidade && formik.errors.modalidade}</span> </p>    
            <Select 
-           className='p-3 mb-1'
+           className='p-3 mb-1 react-select'
+           id="custom"
            components={animatedComponents}
            onChange={(e) => {
              formik.setFieldValue("modalidade", e.id)
@@ -193,8 +171,9 @@ const Registrar = () => {
            </div>
            )
            }
-          {nome ?  null : 
-          <Container>
+           <div className='flex justify-center items-center'>
+          {nome ?  null :    
+          <div className='p-[20px] bg-[#fafafafa] border-4 border-black border-dashed'>
             <input
               type="file"
               name="image"
@@ -203,8 +182,10 @@ const Registrar = () => {
                 formik.setFieldValue('image', event.currentTarget.files[0])
               }}
             />
-          </Container>
+          </div>
+
           }
+          </div>
         {loadingAlunos ? <button 
         disabled
         className='button-disabled m-5'>
@@ -219,6 +200,7 @@ const Registrar = () => {
                   buttonText='Matricular com Google'
                   onSuccess={responseGoogle}
                   onFailure={responseFailure}
+                  className='google'
         />
     </GoogleOAuthProvider>
         <h5 className='text-white m-5'>
@@ -228,15 +210,6 @@ const Registrar = () => {
       <div className='hidden sm:block sm:w-1/2'>
         <img className="w-[100%] object-cover object-top" src="./gym-green.png" alt="" />
       </div>
-      {/* <div>
-        {logado ?
-        <div>
-        <img src={profilePic} alt="Profile" />
-        <p>Name: { nome }</p>
-        <p>Email: { email }</p>
-        </div>  
-      : ''}
-      </div> */}
     </div>
   )
 }

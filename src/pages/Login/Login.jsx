@@ -66,7 +66,7 @@ const Login = () => {
               onBlur={formik.handleBlur('senha')}
           />
         </div>
-        <button className='button-white m-5'>
+        <button type="submit" className='button-white m-5'>
           Logar
         </button>
         <h5 className='text-white m-5'>

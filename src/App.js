@@ -10,8 +10,9 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Contato from './pages/Contato/Contato';
 import AreaDoAluno from './pages/AreaDoAluno/AreaDoAluno';
-import MudarModalidade from './components/MudarModalidade/MudarModalidade';
-import NotificarPresenca from './components/NotificarPresenca/NotificarPresenca';
+import MudarModalidade from './pages/MudarModalidade/MudarModalidade';
+import NotificarPresenca from './pages/NotificarPresenca/NotificarPresenca';
+import NotificarPagamentos from './pages/NotificarPagamentos/NotificarPagamentos';
 
 
 function App() {
@@ -29,10 +30,10 @@ function App() {
         <Route path="/contato" element={<Contato />}/>
       </Route>
       <Route element={<RotasProtegidas alunoLogado={alunoLogado} />} >
-          <Route path="/home" element={<Home />} />
-          <Route path="/mudarModalidade" element={<MudarModalidade />} />
-          <Route path="/notificarPresenca" element={< NotificarPresenca/>} />
-          {/* <Route path="/aluno" element={<AreaDoAluno />} />  Será desenvolvido no módulo 3 /* */}
+          <Route path="/home" element={<Inicial />} />
+          <Route path="/mudar-Modalidade" element={<MudarModalidade />} />
+          <Route path="/notificar-Presenca" element={< NotificarPresenca/>} />
+          <Route path="/notificar-Pagamento" element={< NotificarPagamentos/>} />
         </Route>
     </Routes>
   </Router>
