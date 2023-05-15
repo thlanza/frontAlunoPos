@@ -21,7 +21,7 @@ const formSchema = Yup.object({
 const NotificarPagamentos = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
     const dispatch = useDispatch();
-    const [dataInicial, configurarDataInicial] = useState(new Date());
+    const [dataInicial, configurarDataInicial] = useState("");
     const [msgErro, configurarMsgErro] = useState(null);
     const onChangeData = (date) => {
         configurarDataInicial(date)
@@ -39,7 +39,10 @@ const NotificarPagamentos = () => {
             image: ''
         },
         onSubmit: values => {
-
+            console.log(values);
+            if(!values.mes || !values.ano || !values.image) {
+              alert('Preencha todas as opções!')
+            }
             const comprovante = dispatch(uploadComprovanteAction(values)); 
             if (comprovante.error) {
                 configurarMsgErro(comprovante.payload.message);
@@ -61,6 +64,7 @@ const NotificarPagamentos = () => {
       <p className='outlined text-red-600 text-2xl mt-7 ml-5'>Ocorreu um erro nos nossos servidores. Tente novamente.</p>
       : <p className='outlined text-2xl mt-7 ml-2'>Faça upload do seu comprovante de pagamento:</p>}
       <div>
+      {dataInicial === "" ? "Clique abaixo para escolher uma data": null}
       <DatePicker 
                   selected={dataInicial} 
                   className='ml-2 mb-5 mt-6'
@@ -69,6 +73,7 @@ const NotificarPagamentos = () => {
                   data-cy="datePicker"
                   dateFormat="dd/MM/yyyy"
               />
+     
       </div>
           <div className='ml-2 p-[8px] bg-[#fafafafa] border-4 border-black border-dashed'>
           <input
@@ -97,6 +102,7 @@ const NotificarPagamentos = () => {
         <p className='outlined text-red-600 text-2xl mt-7 ml-5'>Ocorreu um erro nos nossos servidores. Tente novamente.</p>
         : <p className='outlined text-2xl mt-7 ml-5'>Faça upload do seu comprovante de pagamento:</p>}
         <div>
+        {dataInicial === "" ? <p className='font-spartan text-white'>Clique abaixo para escolher uma data</p>: null}
         <DatePicker 
                     selected={dataInicial} 
                     className='mb-5 mt-2 react-date-picker'
@@ -118,12 +124,12 @@ const NotificarPagamentos = () => {
                 formik.setFieldValue('image', event.currentTarget.files[0])
               }}
             />
-          </div>
           <button 
         type='submit'
         className='button-white m-5'>
           Enviar
         </button>
+        </div>
     </form>
     )}
     </div>
