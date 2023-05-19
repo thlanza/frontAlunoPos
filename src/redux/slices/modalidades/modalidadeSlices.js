@@ -49,33 +49,7 @@ export const umaModalidadeAction = createAsyncThunk('modalidades/umaModadalidade
         }
 });
 
-export const mudarModalidadeAction = createAsyncThunk('modalidades/mudarModadalidade',
-    async (requisicao, { rejectWithValue, getState, dispatch }) => {
 
-        const alunos = getState()?.alunos;
-        const { alunoLogado } = alunos;
-        try {
-            //http call
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: 'Bearer ' + alunoLogado?.token
-                }
-            };
-            const url = `${baseUrl}/alunos/mudarModalidade`
-            const { data } = await axios.put(
-                url,
-                requisicao,
-                config
-            )
-            return data;
-        } catch (err) {
-            if(!err?.response) {
-                throw err;
-            };
-            return rejectWithValue(err?.response?.data);
-        }
-});
 
 const modalidadeSlices = createSlice({
     name: 'modalidades',
@@ -113,23 +87,6 @@ const modalidadeSlices = createSlice({
             state.serverErr = undefined;  
         });
         builder.addCase(umaModalidadeAction.rejected, (state, action) => {
-            state.loading = false;
-            state.appErr = action?.payload?.message;
-            state.serverErr = action?.error?.message;
-        });
-        //mudar Modalidade
-        builder.addCase(mudarModalidadeAction.pending, (state, action) => {
-            state.loading = true; 
-            state.appErr = undefined;
-            state.serverErr = undefined;  
-        });
-        builder.addCase(mudarModalidadeAction.fulfilled, (state, action) => {
-            state.loading = false; 
-            state.modalidadeAlterada = action?.payload;
-            state.appErr = undefined;
-            state.serverErr = undefined;  
-        });
-        builder.addCase(mudarModalidadeAction.rejected, (state, action) => {
             state.loading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;

@@ -150,6 +150,42 @@ export const notificarListaPresencaAction = createAsyncThunk('aluno/notificarLis
             }
 });
 
+export const mudarModalidadeAction = createAsyncThunk('modalidades/mudarModadalidade',
+    async (requisicao, { rejectWithValue, getState, dispatch }) => {
+
+        const alunos = getState()?.alunos;
+        const { alunoLogado } = alunos;
+        try {
+            //http call
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: 'Bearer ' + alunoLogado?.token
+                }
+            };
+            const url = `${baseUrl}/alunos/mudarModalidade`
+            const { data } = await axios.put(
+                url,
+                requisicao,
+                config
+            )
+            let alunosLocalStorage =  JSON.parse(localStorage.getItem('infoAluno'));
+            let token = alunosLocalStorage.token;
+            let alunoModificado = {
+                usuario: data.aluno,
+                token
+            }
+            localStorage.setItem('infoAluno', JSON.stringify(alunoModificado));
+            
+            return data;
+        } catch (err) {
+            if(!err?.response) {
+                throw err;
+            };
+            return rejectWithValue(err?.response?.data);
+        }
+});
+
 //pegar aluno do localStorage e colocar na store
 const alunoMatriculadoLocalStorage = 
     localStorage.getItem('infoAluno') ?
@@ -266,6 +302,23 @@ const alunosSlices = createSlice({
             state.serverErr = undefined;
         });
         builder.addCase(uploadComprovanteAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appErr = action?.payload?.message;
+            state.serverErr = action?.error?.message;
+        });
+        //mudar Modalidade
+        builder.addCase(mudarModalidadeAction.pending, (state, action) => {
+            state.loading = true; 
+            state.appErr = undefined;
+            state.serverErr = undefined;  
+        });
+        builder.addCase(mudarModalidadeAction.fulfilled, (state, action) => {
+            state.loading = false; 
+            state.alunoLogado.usuario = action?.payload?.aluno;
+            state.appErr = undefined;
+            state.serverErr = undefined;  
+        });
+        builder.addCase(mudarModalidadeAction.rejected, (state, action) => {
             state.loading = false;
             state.appErr = action?.payload?.message;
             state.serverErr = action?.error?.message;
